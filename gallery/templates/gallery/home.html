@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Django Image Gallery</title>
+    <link rel="stylesheet" href="{% static 'gallery/css/style.css' %}">
+</head>
+<body>
+    <header class="header">
+        <h1>Django Image Gallery</h1>
+        <p>Images uploaded from Django Admin Panel will appear here.</p>
+        <a href="/admin/" class="admin-btn">Go to Admin Panel</a>
+    </header>
+
+    <main class="container">
+        {% if images %}
+            <div class="gallery-grid">
+                {% for item in images %}
+                    <div class="card">
+                        <img src="{{ item.image.url }}" alt="{{ item.title }}">
+                        <div class="card-content">
+                            <h2>{{ item.title }}</h2>
+                            {% if item.description %}
+                                <p>{{ item.description }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-box">
+                <h2>No images uploaded yet</h2>
+                <p>Login to admin panel and add images under Home Images.</p>
+            </div>
+        {% endif %}
+    </main>
+</body>
+</html>
